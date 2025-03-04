@@ -11,7 +11,7 @@ static double abs (double x, double y) {
 
 //тип точка плоскости
 struct Point {
-	double x_, y_;
+double x_, y_;
 
 	Point () {}
 	Point (double x, double y) : x_(x), y_(y) {}
@@ -31,6 +31,22 @@ struct Node {
 
 	Node () : prev_(nullptr), next_(nullptr) {}
 	Node (Node* prev, Node* next, Point point) : prev_(prev), next_(next), point_(point) {}
+	
+	bool isin_List (Point p) {
+		if (p == point_) return false;
+		for (Node* next = next_ ; next != nullptr; next = next->next_) { 
+			if (next->isPoint(p)) return false; 
+		}	
+		for (Node* prev = prev_; prev != nullptr; prev = prev->prev_) { 
+			if (prev->isPoint(p)) return false; 
+		}
+		return true;
+	}
+
+	bool isPoint (Point point) {
+		return point == point_;
+	}
+
 };
 
 //класс прямоугольник, чтобы опрделять точки внутри прмоугольника

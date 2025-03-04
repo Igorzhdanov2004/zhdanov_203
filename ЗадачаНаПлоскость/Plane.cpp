@@ -11,7 +11,7 @@ Set_points::Set_points (const Set_points& other) {
 			first_ = new Node;
 			first_->point_ = tmp->point_;
 		} else {
-			Node* p = new Node;
+		Node* p = new Node;
 			p->point_ = tmp->point_;
 			for (Node* ptr = first_; ptr != nullptr; ptr = ptr->next_) { p->prev_ = ptr; }
 			p->prev_->next_ = p;
@@ -37,7 +37,8 @@ Set_points::~Set_points () {
 //добавление одной точки в множество
 void Set_points::operator() (double x, double y) {
 	Point p(x, y);
-	for (Node* ptr = first_; ptr != nullptr; ptr = ptr->next_) { if (abs(ptr->point_.x_, x) <= eps && abs(ptr->point_.y_, y) <= eps) throw Exception (1, "Добавление элемента. Элемент уже есть в множестве."); }
+	bool val = first_->isin_List(p);
+	if(val == false) throw Exception (1, "Добавление элемента. Элемент уже есть в множестве.");  
 
 	Node* n = new Node;
 	if (first_ == nullptr) { first_ = n; }
